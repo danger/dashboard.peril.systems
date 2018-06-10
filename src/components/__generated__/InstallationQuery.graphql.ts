@@ -5,13 +5,7 @@ export type InstallationQueryVariables = {
     readonly id: number;
 };
 export type InstallationQueryResponse = {
-    readonly installation: ({
-        readonly repos: any;
-        readonly rules: any;
-        readonly settings: any;
-        readonly tasks: any;
-        readonly envVars: any | null;
-    }) | null;
+    readonly installation: ({}) | null;
 };
 
 
@@ -21,13 +15,33 @@ query InstallationQuery(
   $id: Int!
 ) {
   installation(iID: $id) {
-    repos
-    rules
-    settings
-    tasks
-    envVars
+    ...Overview_installation
+    ...Webhooks_installation
     __id: id
   }
+}
+
+fragment Overview_installation on Installation {
+  login
+  repos
+  rules
+  settings
+  tasks
+  envVars
+  __id: id
+}
+
+fragment Webhooks_installation on Installation {
+  webhooks {
+    edges {
+      node {
+        event
+        iID
+        createdAt
+      }
+    }
+  }
+  __id: id
 }
 */
 
@@ -42,72 +56,25 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "installation",
-    "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "iID",
-        "variableName": "id",
-        "type": "Int!"
-      }
-    ],
-    "concreteType": "Installation",
-    "plural": false,
-    "selections": [
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "repos",
-        "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "rules",
-        "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "settings",
-        "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "tasks",
-        "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "envVars",
-        "args": null,
-        "storageKey": null
-      },
-      {
-        "kind": "ScalarField",
-        "alias": "__id",
-        "name": "id",
-        "args": null,
-        "storageKey": null
-      }
-    ]
+    "kind": "Variable",
+    "name": "iID",
+    "variableName": "id",
+    "type": "Int!"
   }
-];
+],
+v2 = {
+  "kind": "ScalarField",
+  "alias": "__id",
+  "name": "id",
+  "args": null,
+  "storageKey": null
+};
 return {
   "kind": "Request",
   "operationKind": "query",
   "name": "InstallationQuery",
   "id": null,
-  "text": "query InstallationQuery(\n  $id: Int!\n) {\n  installation(iID: $id) {\n    repos\n    rules\n    settings\n    tasks\n    envVars\n    __id: id\n  }\n}\n",
+  "text": "query InstallationQuery(\n  $id: Int!\n) {\n  installation(iID: $id) {\n    ...Overview_installation\n    ...Webhooks_installation\n    __id: id\n  }\n}\n\nfragment Overview_installation on Installation {\n  login\n  repos\n  rules\n  settings\n  tasks\n  envVars\n  __id: id\n}\n\nfragment Webhooks_installation on Installation {\n  webhooks {\n    edges {\n      node {\n        event\n        iID\n        createdAt\n      }\n    }\n  }\n  __id: id\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -115,15 +82,147 @@ return {
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": v0,
-    "selections": v1
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "installation",
+        "storageKey": null,
+        "args": v1,
+        "concreteType": "Installation",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "FragmentSpread",
+            "name": "Overview_installation",
+            "args": null
+          },
+          {
+            "kind": "FragmentSpread",
+            "name": "Webhooks_installation",
+            "args": null
+          },
+          v2
+        ]
+      }
+    ]
   },
   "operation": {
     "kind": "Operation",
     "name": "InstallationQuery",
     "argumentDefinitions": v0,
-    "selections": v1
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "installation",
+        "storageKey": null,
+        "args": v1,
+        "concreteType": "Installation",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "login",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "repos",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "rules",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "settings",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "tasks",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "envVars",
+            "args": null,
+            "storageKey": null
+          },
+          v2,
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "webhooks",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "RecordedWebhookConnection",
+            "plural": false,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "edges",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "RecordedWebhookEdge",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "node",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "RecordedWebhook",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "event",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "iID",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "createdAt",
+                        "args": null,
+                        "storageKey": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 };
 })();
-(node as any).hash = '95aac262c0444827e66c1b34a604844a';
+(node as any).hash = '0bc5c0b37f24c1e7bbbc03a5761b5579';
 export default node;

@@ -1,109 +1,93 @@
 import * as React from "react"
 
+import { createFragmentContainer, graphql } from "react-relay"
 import { Container, Divider, Header, Menu, Message, Segment, Table } from "semantic-ui-react"
+import { Overview } from "./__generated__/Overview.graphql"
 
-const Overview = () => (
+const OverviewInternal = (props: Props) => (
   <div>
-    <Container style={{ paddingTop: "5em", paddingBottom: "5em" }} text>
-      <Header as="h2">Header Groups</Header>
+    <Header as="h2">{props.installation.login}</Header>
 
-      <Header as="h4" attached="top" block>
-        Top Block Header
-      </Header>
-      <Segment attached>Segment</Segment>
+    <Header as="h4" attached="top" block>
+      Top Block Header
+    </Header>
+    <Segment attached>Segment</Segment>
 
-      <Divider section />
+    <Divider section />
 
-      <Segment attached>Segment</Segment>
-      <Header as="h4" attached="bottom" block>
-        Bottom Block Header
-      </Header>
+    <Segment attached>Segment</Segment>
+    <Header as="h4" attached="bottom" block>
+      Bottom Block Header
+    </Header>
 
-      <Divider section />
+    <Divider section />
 
-      <Header as="h4" attached="top" block>
-        Top Block Header
-      </Header>
-      <Segment attached>Segment</Segment>
-      <Header as="h4" attached block>
-        Middle Block Header
-      </Header>
-      <Segment attached>Segment</Segment>
-      <Header as="h4" attached="bottom" block>
-        Bottom Block Header
-      </Header>
+    <Header as="h4" attached="top" block>
+      Top Block Header
+    </Header>
+    <Segment attached>Segment</Segment>
+    <Header as="h4" attached block>
+      Middle Block Header
+    </Header>
+    <Segment attached>Segment</Segment>
+    <Header as="h4" attached="bottom" block>
+      Bottom Block Header
+    </Header>
 
-      <Header as="h2">Mixed Attached Content</Header>
+    <Header as="h2">Mixed Attached Content</Header>
 
-      <Segment attached="top">Segment</Segment>
-      <Menu attached compact widths={3}>
-        <Menu.Item as="a">Item</Menu.Item>
-        <Menu.Item as="a">Item</Menu.Item>
-        <Menu.Item as="a">Item</Menu.Item>
-      </Menu>
-      <Segment attached>1</Segment>
-      <Message attached content="Message" icon="help circle" info />
-      <Table attached="bottom">
-        <Table.Header>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table>
+    <Segment attached="top">Segment</Segment>
+    <Menu attached compact widths={3}>
+      <Menu.Item as="a">Item</Menu.Item>
+      <Menu.Item as="a">Item</Menu.Item>
+      <Menu.Item as="a">Item</Menu.Item>
+    </Menu>
+    <Segment attached>1</Segment>
+    <Message attached content="Message" icon="help circle" info />
+    <Table attached="bottom">
+      <Table.Header>
+        <Table.HeaderCell>Header</Table.HeaderCell>
+        <Table.HeaderCell>Header</Table.HeaderCell>
+        <Table.HeaderCell>Header</Table.HeaderCell>
+      </Table.Header>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell>Cell</Table.Cell>
+          <Table.Cell>Cell</Table.Cell>
+          <Table.Cell>Cell</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Cell</Table.Cell>
+          <Table.Cell>Cell</Table.Cell>
+          <Table.Cell>Cell</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Cell</Table.Cell>
+          <Table.Cell>Cell</Table.Cell>
+          <Table.Cell>Cell</Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table>
 
-      <Divider section />
-
-      <Message attached="top" content="Message" icon="attention" warning />
-      <Table attached>
-        <Table.Header>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-            <Table.Cell>Cell</Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table>
-      <Menu attached="bottom" compact widths={3}>
-        <Menu.Item as="a">Item</Menu.Item>
-        <Menu.Item as="a">Item</Menu.Item>
-        <Menu.Item as="a">Item</Menu.Item>
-      </Menu>
-
-      <Divider section />
-    </Container>
+    <Divider section />
   </div>
 )
 
-export default Overview
+interface Props {
+  installation: Overview
+}
+
+export default createFragmentContainer<Props>(
+  OverviewInternal,
+  graphql`
+    fragment Overview_installation on Installation {
+      login
+
+      repos
+      rules
+      settings
+      tasks
+      envVars
+    }
+  `
+)

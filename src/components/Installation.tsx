@@ -1,7 +1,10 @@
 import * as React from "react"
 import { graphql, QueryRenderer } from "react-relay"
 
+import { Container } from "semantic-ui-react"
 import initEnvironment from "../lib/createRelayEnvironment"
+import Overview from "./installation/Overview"
+import Webhooks from "./installation/Webhooks"
 
 export default class Installation extends React.Component<any> {
   public render() {
@@ -14,11 +17,8 @@ export default class Installation extends React.Component<any> {
         query={graphql`
           query InstallationQuery($id: Int!) {
             installation(iID: $id) {
-              repos
-              rules
-              settings
-              tasks
-              envVars
+              ...Overview_installation
+              ...Webhooks_installation
             }
           }
         `}
@@ -32,11 +32,10 @@ export default class Installation extends React.Component<any> {
           }
 
           return (
-            <div>
-              <pre style={{ width: 300 }}>
-                <code>{JSON.stringify(props)}</code>
-              </pre>
-            </div>
+            <Container style={{ paddingTop: "5em", paddingBottom: "5em" }} text>
+              <Overview installation={props.installation} />
+              <Webhooks installation={props.installation} />
+            </Container>
           )
         }}
       />
