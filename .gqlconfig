@@ -1,0 +1,14 @@
+{
+  schema: {
+    files: "relay_data/schema.graphql"
+  },
+  query: {
+    files: [
+      {
+        match: { include: "src/components/**/*.tsx" },
+        parser: ["EmbeddedQueryParser", { startTag: "graphql`", endTag: "`" }],
+        isRelay: true
+      }
+    ]
+  }
+}
