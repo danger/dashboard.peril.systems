@@ -1,56 +1,85 @@
 import * as React from "react"
 import { createFragmentContainer, graphql, RelayProp } from "react-relay"
 
+import { Button, Dropdown, Segment } from "semantic-ui-react"
+import { TaskRunner_installation } from "./__generated__/TaskRunner_installation.graphql"
 import { runTaskMutation } from "./mutations/runTaskMutation"
-import { InstallationRules_installation } from "./__generated__/InstallationRules_installation.graphql"
 
 interface Props {
-  installation: InstallationRules_installation
+  installation: TaskRunner_installation
 }
 
-// interface State {
-//   value: string
-// }
+interface State {
+  selectedTask: string | null
+}
 
 type RProps = Props & { relay: RelayProp }
 
-class TaskRunner extends React.Component<RProps, any> {
+class InsideTaskRunner extends React.Component<RProps, State> {
   constructor(props: RProps) {
     super(props)
-    this.state = { value: "" }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.state = { selectedTask: null }
   }
 
-  handleChange(event: any) {
-    this.setState({ value: event.target.value })
+  public handleClick = () => this.submitTaskMutation()
+
+  public handleKeyPress = (e: KeyboardEvent) => {
+    if (e.charCode === 32 || e.charCode === 13) {
+      // Prevent the default action to stop scrolling when space is pressed
+      e.preventDefault()
+      this.submitTaskMutation()
+    }
   }
 
-  handleSubmit(event: any) {
+  public submitTaskMutation() {
     runTaskMutation(this.props.relay.environment, {
       iID: this.props.installation.iID,
-      task: this.state.value,
+      task: this.state.selectedTask!,
       data: {},
     })
-    event.preventDefault()
   }
 
-  render() {
+  public render() {
+    const taskOptions = Object.keys(this.props.installation.tasks).map(key => ({
+      key,
+      text: key,
+      value: key,
+      content: key,
+    }))
+
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Task:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <Segment style={{ padding: "8em 0em" }} vertical>
+        <p>You can run any tasks which are set up</p>
+        <Button.Group>
+          <Dropdown
+            button
+            className="icon"
+            floating
+            labeled
+            labelPosition="right"
+            options={taskOptions}
+            search
+            text={this.state.selectedTask || "Select Task"}
+            onChange={(a, b) => {
+              this.setState({ selectedTask: b.value as string })
+            }}
+          />
+          <Button
+            labelPosition="right"
+            icon="right chevron"
+            content="Run Task"
+            disabled={!this.state.selectedTask}
+            onClick={this.handleClick}
+            onKeyPress={this.handleKeyPress}
+          />
+        </Button.Group>
+      </Segment>
     )
   }
 }
 
 export default createFragmentContainer<RProps>(
-  TaskRunner,
+  InsideTaskRunner,
   graphql`
     fragment TaskRunner_installation on Installation {
       iID

@@ -2,6 +2,9 @@
   "name": "peril-systems-cra-rewire",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.x"
+  },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.49",
     "babel-plugin-relay": "https://github.com/alloy/relay/releases/download/v1.5.0-artsy.5/babel-plugin-relay-1.5.0-artsy.5.tgz",
@@ -26,7 +29,7 @@
     "schema:download": "yarn run schema:download:gql && yarn run schema:download:json",
     "schema:download:gql": "yarn graphql get-schema -e http://localhost:5000/api/graphql -o relay_data/schema.graphql --no-all",
     "schema:download:json": "yarn graphql get-schema -e http://localhost:5000/api/graphql -o relay_data/schema.json --json --no-all",
-    "relay": "yarn relay-compiler --src ./ --include 'src/components/**/*' 'src/pages/**/*'  --schema relay_data/schema.graphql --language typescript"
+    "relay": "yarn relay-compiler --src ./ --include 'src/components/**/*' 'src/pages/**/*'  --schema relay_data/schema.json --language typescript"
   },
   "browserslist": {
     "development": [

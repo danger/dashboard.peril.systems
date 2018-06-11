@@ -17,6 +17,7 @@ query InstallationQuery(
   installation(iID: $id) {
     ...Overview_installation
     ...Webhooks_installation
+    ...TaskRunner_installation
     __id: id
   }
 }
@@ -41,6 +42,12 @@ fragment Webhooks_installation on Installation {
       }
     }
   }
+  __id: id
+}
+
+fragment TaskRunner_installation on Installation {
+  iID
+  tasks
   __id: id
 }
 */
@@ -68,13 +75,20 @@ v2 = {
   "name": "id",
   "args": null,
   "storageKey": null
+},
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "iID",
+  "args": null,
+  "storageKey": null
 };
 return {
   "kind": "Request",
   "operationKind": "query",
   "name": "InstallationQuery",
   "id": null,
-  "text": "query InstallationQuery(\n  $id: Int!\n) {\n  installation(iID: $id) {\n    ...Overview_installation\n    ...Webhooks_installation\n    __id: id\n  }\n}\n\nfragment Overview_installation on Installation {\n  login\n  repos\n  rules\n  settings\n  tasks\n  envVars\n  __id: id\n}\n\nfragment Webhooks_installation on Installation {\n  webhooks {\n    edges {\n      node {\n        event\n        iID\n        createdAt\n      }\n    }\n  }\n  __id: id\n}\n",
+  "text": "query InstallationQuery(\n  $id: Int!\n) {\n  installation(iID: $id) {\n    ...Overview_installation\n    ...Webhooks_installation\n    ...TaskRunner_installation\n    __id: id\n  }\n}\n\nfragment Overview_installation on Installation {\n  login\n  repos\n  rules\n  settings\n  tasks\n  envVars\n  __id: id\n}\n\nfragment Webhooks_installation on Installation {\n  webhooks {\n    edges {\n      node {\n        event\n        iID\n        createdAt\n      }\n    }\n  }\n  __id: id\n}\n\nfragment TaskRunner_installation on Installation {\n  iID\n  tasks\n  __id: id\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -100,6 +114,11 @@ return {
           {
             "kind": "FragmentSpread",
             "name": "Webhooks_installation",
+            "args": null
+          },
+          {
+            "kind": "FragmentSpread",
+            "name": "TaskRunner_installation",
             "args": null
           },
           v2
@@ -198,13 +217,7 @@ return {
                         "args": null,
                         "storageKey": null
                       },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "iID",
-                        "args": null,
-                        "storageKey": null
-                      },
+                      v3,
                       {
                         "kind": "ScalarField",
                         "alias": null,
@@ -217,12 +230,13 @@ return {
                 ]
               }
             ]
-          }
+          },
+          v3
         ]
       }
     ]
   }
 };
 })();
-(node as any).hash = '0bc5c0b37f24c1e7bbbc03a5761b5579';
+(node as any).hash = '4d3f77685e1b5f32bd70a734d23ea1e6';
 export default node;

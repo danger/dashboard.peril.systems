@@ -4,6 +4,7 @@ import { graphql, QueryRenderer } from "react-relay"
 import { Container } from "semantic-ui-react"
 import initEnvironment from "../lib/createRelayEnvironment"
 import Overview from "./installation/Overview"
+import TaskRunner from "./installation/TaskRunner"
 import Webhooks from "./installation/Webhooks"
 
 export default class Installation extends React.Component<any> {
@@ -19,6 +20,7 @@ export default class Installation extends React.Component<any> {
             installation(iID: $id) {
               ...Overview_installation
               ...Webhooks_installation
+              ...TaskRunner_installation
             }
           }
         `}
@@ -35,6 +37,7 @@ export default class Installation extends React.Component<any> {
             <Container style={{ paddingTop: "5em", paddingBottom: "5em" }} text>
               <Overview installation={props.installation} />
               <Webhooks installation={props.installation} />
+              <TaskRunner installation={props.installation} />
             </Container>
           )
         }}
