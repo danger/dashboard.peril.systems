@@ -5,7 +5,9 @@ export type InstallationQueryVariables = {
     readonly id: number;
 };
 export type InstallationQueryResponse = {
-    readonly installation: ({}) | null;
+    readonly installation: ({
+        readonly iID: number;
+    }) | null;
 };
 
 
@@ -15,6 +17,7 @@ query InstallationQuery(
   $id: Int!
 ) {
   installation(iID: $id) {
+    iID
     ...Overview_installation
     ...Webhooks_installation
     ...TaskRunner_installation
@@ -71,15 +74,15 @@ v1 = [
 ],
 v2 = {
   "kind": "ScalarField",
-  "alias": "__id",
-  "name": "id",
+  "alias": null,
+  "name": "iID",
   "args": null,
   "storageKey": null
 },
 v3 = {
   "kind": "ScalarField",
-  "alias": null,
-  "name": "iID",
+  "alias": "__id",
+  "name": "id",
   "args": null,
   "storageKey": null
 };
@@ -88,7 +91,7 @@ return {
   "operationKind": "query",
   "name": "InstallationQuery",
   "id": null,
-  "text": "query InstallationQuery(\n  $id: Int!\n) {\n  installation(iID: $id) {\n    ...Overview_installation\n    ...Webhooks_installation\n    ...TaskRunner_installation\n    __id: id\n  }\n}\n\nfragment Overview_installation on Installation {\n  login\n  repos\n  rules\n  settings\n  tasks\n  envVars\n  __id: id\n}\n\nfragment Webhooks_installation on Installation {\n  webhooks {\n    edges {\n      node {\n        event\n        iID\n        createdAt\n      }\n    }\n  }\n  __id: id\n}\n\nfragment TaskRunner_installation on Installation {\n  iID\n  tasks\n  __id: id\n}\n",
+  "text": "query InstallationQuery(\n  $id: Int!\n) {\n  installation(iID: $id) {\n    iID\n    ...Overview_installation\n    ...Webhooks_installation\n    ...TaskRunner_installation\n    __id: id\n  }\n}\n\nfragment Overview_installation on Installation {\n  login\n  repos\n  rules\n  settings\n  tasks\n  envVars\n  __id: id\n}\n\nfragment Webhooks_installation on Installation {\n  webhooks {\n    edges {\n      node {\n        event\n        iID\n        createdAt\n      }\n    }\n  }\n  __id: id\n}\n\nfragment TaskRunner_installation on Installation {\n  iID\n  tasks\n  __id: id\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -106,6 +109,7 @@ return {
         "concreteType": "Installation",
         "plural": false,
         "selections": [
+          v2,
           {
             "kind": "FragmentSpread",
             "name": "Overview_installation",
@@ -121,7 +125,7 @@ return {
             "name": "TaskRunner_installation",
             "args": null
           },
-          v2
+          v3
         ]
       }
     ]
@@ -140,6 +144,7 @@ return {
         "concreteType": "Installation",
         "plural": false,
         "selections": [
+          v2,
           {
             "kind": "ScalarField",
             "alias": null,
@@ -182,7 +187,7 @@ return {
             "args": null,
             "storageKey": null
           },
-          v2,
+          v3,
           {
             "kind": "LinkedField",
             "alias": null,
@@ -217,7 +222,7 @@ return {
                         "args": null,
                         "storageKey": null
                       },
-                      v3,
+                      v2,
                       {
                         "kind": "ScalarField",
                         "alias": null,
@@ -230,13 +235,12 @@ return {
                 ]
               }
             ]
-          },
-          v3
+          }
         ]
       }
     ]
   }
 };
 })();
-(node as any).hash = '4d3f77685e1b5f32bd70a734d23ea1e6';
+(node as any).hash = '1158907187b5b3bf29c9207cc0030773';
 export default node;

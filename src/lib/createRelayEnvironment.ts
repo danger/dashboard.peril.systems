@@ -1,52 +1,43 @@
-declare const process: any
-
 import fetch from "isomorphic-unfetch"
 import { Environment, Network, RecordSource, Store } from "relay-runtime"
+import Cookies from "universal-cookie"
 
+declare const process: any
 let relayEnvironment: Environment | null = null
-
-interface JWTAble {
-  jwt: string | undefined
-  records?: any
-}
 
 // Define a function that returns the fetch for the results of an operation (query/mutation/etc)
 // and returns its results as a Promise:
-const fetchQuery = (ctx: JWTAble) => (operation: any, variables: any, _: any, __: any) => {
-  const auth = !ctx.jwt ? {} : { Authorization: `Basic ${ctx.jwt}` }
+const fetchQuery = (operation: any, variables: any, _: any, __: any) => {
+  const cookies = new Cookies()
+  const auth = { Authorization: `Basic ${cookies.get("jwt")}` }
 
-  return fetch("https://staging-api.peril.systems/api/graphql", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      ...auth,
-    },
-    body: JSON.stringify({
-      query: operation.text, // GraphQL text from input
-      variables,
-    }),
-  })
-    .then((response: any) => {
-      return response.json()
+  return (
+    fetch("https://staging-api.peril.systems/api/graphql", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        ...auth,
+      },
+      body: JSON.stringify({
+        query: operation.text, // GraphQL text from input
+        variables,
+      }),
     })
-    .then((json: any) => {
-      return json
-    })
+      .then((response: any) => {
+        return response.json()
+      })
+      // For debugging
+      .then((json: any) => {
+        return json
+      })
+  )
 }
 
-export default function initEnvironment(ctx: JWTAble) {
+export default function initEnvironment() {
   // Create a network layer from the fetch function
-  const network = Network.create(fetchQuery(ctx))
-  const store = new Store(new RecordSource(ctx.records || {}))
-  // Make sure to create a new Relay environment for every server-side request so that data
-  // isn't shared between connections (which would be bad)
-  if (!process.browser) {
-    return new Environment({
-      network,
-      store,
-    })
-  }
+  const network = Network.create(fetchQuery)
+  const store = new Store(new RecordSource({}))
 
   // reuse Relay environment on client-side
   if (!relayEnvironment) {

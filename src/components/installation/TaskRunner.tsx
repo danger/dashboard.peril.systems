@@ -49,7 +49,7 @@ class InsideTaskRunner extends React.Component<RProps, State> {
 
     return (
       <Segment style={{ padding: "8em 0em" }} vertical>
-        <p>You can run any tasks which are set up</p>
+        <p>You can run any tasks as one-offs</p>
         <Button.Group>
           <Dropdown
             button

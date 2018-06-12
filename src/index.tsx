@@ -2,6 +2,8 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import App from "./App"
 
+console.log(document.location)
+
 import * as serviceWorker from "./serviceWorker"
 ReactDOM.render(<App />, document.getElementById("root"))
 
