@@ -15,9 +15,8 @@ const WebhooksHeaderInternal = (props: Props) => {
   const startRecording = props.installation.startedRecordingWebhooksTime
   let isRecording = false
   if (endRecording && startRecording) {
-    const startDate = new Date(startRecording)
     const endDate = new Date(endRecording)
-    isRecording = startDate < endDate
+    isRecording = new Date() < endDate
   }
 
   return (
