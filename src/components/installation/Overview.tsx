@@ -1,8 +1,8 @@
 import * as React from "react"
 
 import { createFragmentContainer, graphql } from "react-relay"
-import { Container, Divider, Header, Menu, Message, Segment, Table } from "semantic-ui-react"
-import { Overview } from "./__generated__/Overview.graphql"
+import { Divider, Header } from "semantic-ui-react"
+import { Overview_installation } from "./__generated__/Overview_installation.graphql"
 
 const OverviewInternal = (props: Props) => (
   <div>
@@ -12,7 +12,7 @@ const OverviewInternal = (props: Props) => (
 )
 
 interface Props {
-  installation: Overview
+  installation: Overview_installation
 }
 
 export default createFragmentContainer<Props>(
@@ -20,12 +20,6 @@ export default createFragmentContainer<Props>(
   graphql`
     fragment Overview_installation on Installation {
       login
-
-      repos
-      rules
-      settings
-      tasks
-      envVars
     }
   `
 )

@@ -113,8 +113,10 @@ interface MSGDangerfileLog {
   date: Date
 }
 
+const dangerfileRefToHref = a => a
+
 const connectedEvent = (event: MSGConnected) => (
-  <Feed.Event>
+  <Feed.Event key={`connected-$[event.date}`}>
     <Feed.Content>
       <Feed.Summary>
         Connected
@@ -132,7 +134,7 @@ const dangerfileStartedEvent = (event: MSGDangerfileStarted) => (
         <Feed.Date>{relativeDate(event.date)}</Feed.Date>
       </Feed.Summary>
       <Feed.Meta>
-        <Feed.Like>{event.filenames.join(", ")}</Feed.Like>
+        <Feed.Like>{event.filenames.map(dangerfileRefToHref).join(", ")}</Feed.Like>
       </Feed.Meta>
     </Feed.Content>
   </Feed.Event>

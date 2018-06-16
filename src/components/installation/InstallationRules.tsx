@@ -1,43 +1,28 @@
 import * as React from "react"
 import { createFragmentContainer, graphql, RelayProp } from "react-relay"
-// import Link from "next/link"
+import { Segment } from "semantic-ui-react"
 import { InstallationRules_installation } from "./__generated__/InstallationRules_installation.graphql"
-import { recordWebhooksMutation } from "./mutations/makeInstallationRecordMutation"
 
 interface Props {
   installation: InstallationRules_installation
 }
 
-const InstallationRules: any = (props: Props & { relay: RelayProp }) => {
+export const InstallationRules: any = (props: Props & { relay: RelayProp }) => {
   if (!props.installation) {
     return <div />
   }
+
+  const visibleSettings = {
+    rules: props.installation.rules,
+    repos: props.installation.repos,
+    tasks: props.installation.tasks,
+    scheduler: props.installation.scheduler,
+  }
   return (
-    <div>
-      <h3>Rules KO!</h3>
-      <h4>Sure?</h4>
-      <p>
-        <pre>
-          <code>{JSON.stringify(props.installation.rules, null, "  ")}</code>
-        </pre>
-      </p>
-      <p>
-        <pre>
-          <code>{JSON.stringify(props.installation.repos, null, "  ")}</code>
-        </pre>
-      </p>
-      <p>
-        <pre>
-          <code>{JSON.stringify(props.installation.tasks, null, "  ")}</code>
-        </pre>
-      </p>
-      <p>Path: {props.installation.perilSettingsJSONURL}</p>
-      <p>
-        <a href="#" onClick={() => recordWebhooksMutation(props.relay.environment, props.installation.iID)}>
-          Start recording
-        </a>
-      </p>
-    </div>
+    <Segment>
+      <div className="ui top left attached label">Peril settings</div>
+      <pre>{JSON.stringify(visibleSettings, null, "  ")}</pre>
+    </Segment>
   )
 }
 
@@ -48,8 +33,8 @@ export default createFragmentContainer<Props>(
       iID
       repos
       rules
-      login
       tasks
+      scheduler
       perilSettingsJSONURL
     }
   `

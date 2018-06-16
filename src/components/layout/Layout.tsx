@@ -28,7 +28,7 @@ const renderLoggedInMenu: React.SFC<LayoutQueryResponse> = props => (
         {props.me &&
           props.me.installations &&
           props.me.installations.edges!.map(i => (
-            <MenuItem text={i!.node!.login} href={`/installation/${i!.node!.iID}`} />
+            <MenuItem key={i!.node!.login} text={i!.node!.login} href={`/installation/${i!.node!.iID}`} />
           ))}
         <Dropdown.Divider />
 
@@ -36,7 +36,7 @@ const renderLoggedInMenu: React.SFC<LayoutQueryResponse> = props => (
         {props.me &&
           props.me.installationsToSetUp &&
           props.me.installationsToSetUp.edges!.map(i => (
-            <MenuItem text={i!.node!.login} href={`/partial/${i!.node!.iID}`} />
+            <MenuItem key={i!.node!.login} text={i!.node!.login} href={`/partial/${i!.node!.iID}`} />
           ))}
 
         <Dropdown.Divider />
