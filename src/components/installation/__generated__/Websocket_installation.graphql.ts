@@ -1,15 +1,16 @@
 /* tslint:disable */
 
 import { ConcreteFragment } from "relay-runtime";
-export type Overview_installation = {
-    readonly login: string;
+export type Websocket_installation = {
+    readonly iID: number;
+    readonly perilSettingsJSONURL: string;
 };
 
 
 
 const node: ConcreteFragment = {
   "kind": "Fragment",
-  "name": "Overview_installation",
+  "name": "Websocket_installation",
   "type": "Installation",
   "metadata": null,
   "argumentDefinitions": [],
@@ -17,7 +18,14 @@ const node: ConcreteFragment = {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "login",
+      "name": "iID",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "perilSettingsJSONURL",
       "args": null,
       "storageKey": null
     },
@@ -30,5 +38,5 @@ const node: ConcreteFragment = {
     }
   ]
 };
-(node as any).hash = '444ec2644f85c14238c494c2473eed1e';
+(node as any).hash = '8f9489007f1ee6e8e28390a7de26e47a';
 export default node;

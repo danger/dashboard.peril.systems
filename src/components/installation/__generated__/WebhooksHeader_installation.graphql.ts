@@ -1,20 +1,17 @@
 /* tslint:disable */
 
 import { ConcreteFragment } from "relay-runtime";
-export type InstallationRules_installation = {
+export type WebhooksHeader_installation = {
     readonly iID: number;
-    readonly repos: any;
-    readonly rules: any;
-    readonly tasks: any;
-    readonly scheduler: any;
-    readonly perilSettingsJSONURL: string;
+    readonly recordWebhooksUntilTime: string | null;
+    readonly startedRecordingWebhooksTime: string | null;
 };
 
 
 
 const node: ConcreteFragment = {
   "kind": "Fragment",
-  "name": "InstallationRules_installation",
+  "name": "WebhooksHeader_installation",
   "type": "Installation",
   "metadata": null,
   "argumentDefinitions": [],
@@ -29,35 +26,14 @@ const node: ConcreteFragment = {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "repos",
+      "name": "recordWebhooksUntilTime",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "rules",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "tasks",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "scheduler",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "perilSettingsJSONURL",
+      "name": "startedRecordingWebhooksTime",
       "args": null,
       "storageKey": null
     },
@@ -70,5 +46,5 @@ const node: ConcreteFragment = {
     }
   ]
 };
-(node as any).hash = 'a4457047b69e823ccbf3c4892ae6e11a';
+(node as any).hash = '8b0a4042a9cccff0bf61aef13beb57ec';
 export default node;

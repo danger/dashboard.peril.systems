@@ -56,7 +56,7 @@ class InsideTaskRunner extends React.Component<RProps, State> {
             className="icon"
             floating
             labeled
-            labelPosition="right"
+            labelposition="right"
             options={taskOptions}
             search
             text={this.state.selectedTask || "Select Task"}

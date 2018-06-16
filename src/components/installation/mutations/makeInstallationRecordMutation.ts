@@ -9,7 +9,7 @@ const mutation = graphql`
   }
 `
 
-export const recordWebhooksMutation = (environment: Environment, installationID: number) => {
+export const runRecordWebhooksMutation = (environment: Environment, installationID: number) => {
   const variables = {
     iID: installationID,
   }

@@ -1,9 +1,11 @@
 import * as React from "react"
+import { createFragmentContainer, graphql } from "react-relay"
 import { Button, Dropdown, Feed, Segment } from "semantic-ui-react"
 import relativeDate from "tiny-relative-date"
+import { Websocket_installation } from "./__generated__/Websocket_installation.graphql"
 
 interface Props {
-  iID: string
+  installation: Websocket_installation
 }
 
 interface State {
@@ -13,7 +15,7 @@ interface State {
 
 declare const Primus: any
 
-export class Websocket extends React.Component<Props, State> {
+class Websocket extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
     this.state = { events: [], connected: false }
@@ -23,7 +25,7 @@ export class Websocket extends React.Component<Props, State> {
     // client side only
     console.log("Connecting to Peril's webserver")
     // const primus = new Primus(`https://staging-api.peril.systems?iID=${this.props.iID}`)
-    const primus = new Primus(`${process.env.REACT_APP_PUBLIC_API_ROOT_URL}?iID=${this.props.iID}`)
+    const primus = new Primus(`${process.env.REACT_APP_PUBLIC_API_ROOT_URL}?iID=${this.props.installation.iID}`)
 
     // I do not understand why this doesn't work like I'd expect
 
@@ -63,7 +65,7 @@ export class Websocket extends React.Component<Props, State> {
                 return connectedEvent(e)
 
               case "started":
-                return dangerfileStartedEvent(e)
+                return dangerfileStartedEvent(this.props.installation.perilSettingsJSONURL, e)
 
               case "finished":
                 return dangerfileFinishedEvent(e)
@@ -77,6 +79,16 @@ export class Websocket extends React.Component<Props, State> {
     )
   }
 }
+
+export default createFragmentContainer<Props>(
+  Websocket,
+  graphql`
+    fragment Websocket_installation on Installation {
+      iID
+      perilSettingsJSONURL
+    }
+  `
+)
 
 // Taken from Peril
 
@@ -113,8 +125,29 @@ interface MSGDangerfileLog {
   date: Date
 }
 
+export const dangerRepresentationForPath = (value: string) => {
+  const afterAt = value.includes("@") ? value.split("@")[1] : value
+  return {
+    branch: value.includes("#") ? value.split("#")[1] : "master",
+    dangerfilePath: afterAt.split("#")[0],
+    repoSlug: value.includes("@") ? value.split("@")[0] : undefined,
+    referenceString: value,
+  }
+}
+
+const dangerfileRefToHref = (settingsPath: string, dangerfile: string) => {
+  const settingsJSON = dangerRepresentationForPath(settingsPath)
+  const dangerfileRep = dangerRepresentationForPath(dangerfile)
+  const repo = dangerfileRep.repoSlug || settingsJSON.repoSlug!
+  const ref = dangerfileRep.branch || "master"
+  // e.g.
+  // https://github.com/danger/dashboard.peril.systems/blob/[sha]/src/components/installation/Websocket.tsx
+  const url = `https://github.com/${repo}/blob/${ref}/${dangerfileRep.dangerfilePath}`
+  return `<a href="${url}">${dangerfile}</a>`
+}
+
 const connectedEvent = (event: MSGConnected) => (
-  <Feed.Event>
+  <Feed.Event key={`connected-$[event.date}`}>
     <Feed.Content>
       <Feed.Summary>
         Connected
@@ -124,7 +157,7 @@ const connectedEvent = (event: MSGConnected) => (
   </Feed.Event>
 )
 
-const dangerfileStartedEvent = (event: MSGDangerfileStarted) => (
+const dangerfileStartedEvent = (settingsJSONFile: string, event: MSGDangerfileStarted) => (
   <Feed.Event>
     <Feed.Content>
       <Feed.Summary>
@@ -132,7 +165,13 @@ const dangerfileStartedEvent = (event: MSGDangerfileStarted) => (
         <Feed.Date>{relativeDate(event.date)}</Feed.Date>
       </Feed.Summary>
       <Feed.Meta>
-        <Feed.Like>{event.filenames.join(", ")}</Feed.Like>
+        <Feed.Like>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: event.filenames.map(f => dangerfileRefToHref(settingsJSONFile, f)).join(", "),
+            }}
+          />
+        </Feed.Like>
       </Feed.Meta>
     </Feed.Content>
   </Feed.Event>
