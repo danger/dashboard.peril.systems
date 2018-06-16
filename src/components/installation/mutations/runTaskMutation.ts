@@ -19,10 +19,6 @@ export const runTaskMutation = (environment: Environment, options: RunTaskMutati
   commitMutation(environment, {
     mutation,
     variables: options,
-    onCompleted: (response, errors) => {
-      console.log("Response received from server.")
-      console.log(response)
-    },
     onError: err => console.error(err),
   })
 }

@@ -2,14 +2,14 @@
 
 import { ConcreteFragment } from "relay-runtime";
 export type InstallationsToSetUp_user = {
-    readonly installationsToSetUp: ({
+    readonly installationsToSetUp: {
         readonly edges: ReadonlyArray<({
             readonly node: ({
                 readonly id: string;
                 readonly login: string;
             }) | null;
         }) | null> | null;
-    }) | null;
+    };
 };
 
 

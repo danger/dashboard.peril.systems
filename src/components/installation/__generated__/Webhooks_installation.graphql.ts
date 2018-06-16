@@ -2,7 +2,7 @@
 
 import { ConcreteFragment } from "relay-runtime";
 export type Webhooks_installation = {
-    readonly webhooks: ({
+    readonly webhooks: {
         readonly edges: ReadonlyArray<({
             readonly node: ({
                 readonly event: string;
@@ -10,7 +10,7 @@ export type Webhooks_installation = {
                 readonly createdAt: any;
             }) | null;
         }) | null> | null;
-    }) | null;
+    };
 };
 
 
