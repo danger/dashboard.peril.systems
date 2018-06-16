@@ -7,7 +7,6 @@ import { Overview } from "./__generated__/Overview.graphql"
 const OverviewInternal = (props: Props) => (
   <div>
     <Header as="h2">{props.installation.login}</Header>
-
     <Divider section />
   </div>
 )

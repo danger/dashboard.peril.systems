@@ -169,9 +169,13 @@
                 }
               ],
               "type": {
-                "kind": "OBJECT",
-                "name": "InstallationConnection",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "InstallationConnection",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -222,9 +226,13 @@
                 }
               ],
               "type": {
-                "kind": "OBJECT",
-                "name": "PartialInstallationConnection",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PartialInstallationConnection",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -548,9 +556,13 @@
                 }
               ],
               "type": {
-                "kind": "OBJECT",
-                "name": "RecordedWebhookConnection",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "RecordedWebhookConnection",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1343,6 +1355,20 @@
               "args": [
                 {
                   "name": "jwt",
+                  "description": "",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "name",
                   "description": "",
                   "type": {
                     "kind": "NON_NULL",

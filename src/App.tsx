@@ -5,6 +5,7 @@ import Cookies from "universal-cookie"
 import Installation from "./components/Installation"
 import Layout from "./components/layout/Layout"
 import Login from "./components/Login"
+import PartialInstallation from "./components/PartialInstallation"
 
 class App extends React.Component {
   public render() {
@@ -20,15 +21,6 @@ class App extends React.Component {
               render={() => {
                 const params = new URL(document.location).searchParams
                 cookies.set("jwt", params.get("perilJWT"))
-                return <Redirect to="/" />
-              }}
-            />
-
-            <Route
-              exact
-              path="/logout"
-              render={() => {
-                cookies.remove("jwt")
                 return <Redirect to="/" />
               }}
             />
@@ -51,7 +43,7 @@ class App extends React.Component {
             />
 
             <Route path="/installation/:installationID" component={Installation} />
-            <Route path="/wip/:installationID" component={Installation} />
+            <Route path="/partial/:installationID" component={PartialInstallation} />
           </div>
         </Layout>
       </Router>

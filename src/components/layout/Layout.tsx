@@ -1,5 +1,7 @@
 import { graphql, QueryRenderer } from "react-relay"
 
+import Cookies from "universal-cookie"
+
 import * as React from "react"
 import { Link } from "react-router-dom"
 import { Container, Dropdown, Menu } from "semantic-ui-react"
@@ -11,6 +13,12 @@ const MenuItem = (props: { text: string; href: string }) => (
     {props.text}
   </Dropdown.Item>
 )
+
+const logOut = () => {
+  const cookies = new Cookies()
+  cookies.remove("jwt")
+  window.location.replace("/")
+}
 
 const renderLoggedInMenu: React.SFC<LayoutQueryResponse> = props => (
   <Menu.Menu position="right">
@@ -32,7 +40,7 @@ const renderLoggedInMenu: React.SFC<LayoutQueryResponse> = props => (
           ))}
 
         <Dropdown.Divider />
-        <Dropdown.Item>Logout</Dropdown.Item>
+        <Dropdown.Item onClick={logOut}>Log Out</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   </Menu.Menu>
@@ -56,7 +64,7 @@ const InnerLayout: React.SFC<LayoutQueryResponse> = props => (
 const jwt = process.env.REACT_APP_USER_JWT
 export default initialProps => (
   <QueryRenderer
-    environment={initEnvironment({ jwt })}
+    environment={initEnvironment()}
     query={graphql`
       query LayoutQuery {
         me {
@@ -91,12 +99,9 @@ export default initialProps => (
 
       if (!props) {
         // We're waiting on the reponse for installations
-        console.log("no props")
         return <InnerLayout me={{} as any} />
       }
 
-      console.log("props")
-      console.log(props)
       return <InnerLayout me={props.me}>{initialProps.children}</InnerLayout>
     }}
   />

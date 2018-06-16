@@ -5,22 +5,22 @@ export type LayoutQueryVariables = {};
 export type LayoutQueryResponse = {
     readonly me: ({
         readonly name: string;
-        readonly installations: ({
+        readonly installations: {
             readonly edges: ReadonlyArray<({
                 readonly node: ({
                     readonly login: string;
                     readonly iID: number;
                 }) | null;
             }) | null> | null;
-        }) | null;
-        readonly installationsToSetUp: ({
+        };
+        readonly installationsToSetUp: {
             readonly edges: ReadonlyArray<({
                 readonly node: ({
                     readonly iID: number;
                     readonly login: string;
                 }) | null;
             }) | null> | null;
-        }) | null;
+        };
     }) | null;
 };
 
