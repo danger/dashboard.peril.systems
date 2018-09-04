@@ -52,7 +52,7 @@ const InnerLayout: React.SFC<LayoutQueryResponse> = props => (
 
     <Menu fixed="top">
       <Container text>
-        <Menu.Item header>Peril Admin</Menu.Item>
+        <Menu.Item header>Peril Dashboard</Menu.Item>
         {props.me && renderLoggedInMenu(props)}
       </Container>
     </Menu>
@@ -61,8 +61,7 @@ const InnerLayout: React.SFC<LayoutQueryResponse> = props => (
   </div>
 )
 
-const jwt = process.env.REACT_APP_USER_JWT
-export default initialProps => (
+export default (initialProps: any) => (
   <QueryRenderer
     environment={initEnvironment()}
     query={graphql`
@@ -93,6 +92,7 @@ export default initialProps => (
     variables={{}}
     render={({ error, props }) => {
       if (error) {
+        // tslint:disable-next-line:no-console
         console.error(error)
         return <div>Error!</div>
       }

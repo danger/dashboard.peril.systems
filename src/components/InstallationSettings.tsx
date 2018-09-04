@@ -3,9 +3,10 @@ import { graphql, QueryRenderer } from "react-relay"
 
 import { Container } from "semantic-ui-react"
 import initEnvironment from "../lib/createRelayEnvironment"
-import SetJSONPathForm from "./partial/SetJSONPathForm"
+import Overview from "./installation/Overview"
+import Settings from "./installation/Settings"
 
-export default class PartialInstallation extends React.Component<any> {
+export default class InstallationSettings extends React.Component<any> {
   public render() {
     const installationID = this.props.match.params.installationID
 
@@ -13,10 +14,10 @@ export default class PartialInstallation extends React.Component<any> {
       <QueryRenderer
         environment={initEnvironment()}
         query={graphql`
-          query PartialInstallationQuery($id: Int!) {
+          query InstallationSettingsQuery($id: Int!) {
             installation(iID: $id) {
-              login
-              ...SetJSONPathForm_installation
+              ...Overview_installation
+              ...Settings_installation
             }
           }
         `}
@@ -31,15 +32,8 @@ export default class PartialInstallation extends React.Component<any> {
 
           return (
             <Container style={{ paddingTop: "5em", paddingBottom: "5em" }} text>
-              <h1>{props.installation.login}</h1>
-              <p>
-                The Peril-side of the integration is ready. To get started, you will need to have a peril settings JSON
-                url. These look like:{" "}
-                <a href="https://github.com/danger/peril-settings/blob/master/settings.json">
-                  <code>danger/peril-settings@settings.json</code>
-                </a>
-              </p>
-              <SetJSONPathForm installation={props.installation as any} />
+              <Overview installation={props.installation} />
+              <Settings installation={props.installation} />
             </Container>
           )
         }}

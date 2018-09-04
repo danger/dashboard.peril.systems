@@ -28,6 +28,7 @@ query InstallationQuery(
 }
 
 fragment Overview_installation on Installation {
+  iID
   login
   __id: id
 }
@@ -113,7 +114,7 @@ return {
   "operationKind": "query",
   "name": "InstallationQuery",
   "id": null,
-  "text": "query InstallationQuery(\n  $id: Int!\n) {\n  installation(iID: $id) {\n    iID\n    ...Overview_installation\n    ...InstallationRules_installation\n    ...Webhooks_installation\n    ...TaskRunner_installation\n    ...Websocket_installation\n    __id: id\n  }\n}\n\nfragment Overview_installation on Installation {\n  login\n  __id: id\n}\n\nfragment InstallationRules_installation on Installation {\n  iID\n  repos\n  rules\n  tasks\n  scheduler\n  perilSettingsJSONURL\n  __id: id\n}\n\nfragment Webhooks_installation on Installation {\n  iID\n  ...WebhooksHeader_installation\n  webhooks {\n    edges {\n      node {\n        event\n        iID\n        createdAt\n      }\n    }\n  }\n  __id: id\n}\n\nfragment TaskRunner_installation on Installation {\n  iID\n  tasks\n  __id: id\n}\n\nfragment Websocket_installation on Installation {\n  iID\n  perilSettingsJSONURL\n  __id: id\n}\n\nfragment WebhooksHeader_installation on Installation {\n  iID\n  recordWebhooksUntilTime\n  startedRecordingWebhooksTime\n  __id: id\n}\n",
+  "text": "query InstallationQuery(\n  $id: Int!\n) {\n  installation(iID: $id) {\n    iID\n    ...Overview_installation\n    ...InstallationRules_installation\n    ...Webhooks_installation\n    ...TaskRunner_installation\n    ...Websocket_installation\n    __id: id\n  }\n}\n\nfragment Overview_installation on Installation {\n  iID\n  login\n  __id: id\n}\n\nfragment InstallationRules_installation on Installation {\n  iID\n  repos\n  rules\n  tasks\n  scheduler\n  perilSettingsJSONURL\n  __id: id\n}\n\nfragment Webhooks_installation on Installation {\n  iID\n  ...WebhooksHeader_installation\n  webhooks {\n    edges {\n      node {\n        event\n        iID\n        createdAt\n      }\n    }\n  }\n  __id: id\n}\n\nfragment TaskRunner_installation on Installation {\n  iID\n  tasks\n  __id: id\n}\n\nfragment Websocket_installation on Installation {\n  iID\n  perilSettingsJSONURL\n  __id: id\n}\n\nfragment WebhooksHeader_installation on Installation {\n  iID\n  recordWebhooksUntilTime\n  startedRecordingWebhooksTime\n  __id: id\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",

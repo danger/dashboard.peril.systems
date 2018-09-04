@@ -2,7 +2,6 @@ import fetch from "isomorphic-unfetch"
 import { Environment, Network, RecordSource, Store } from "relay-runtime"
 import Cookies from "universal-cookie"
 
-declare const process: any
 let relayEnvironment: Environment | null = null
 
 // Define a function that returns the fetch for the results of an operation (query/mutation/etc)
@@ -12,7 +11,7 @@ const fetchQuery = (operation: any, variables: any, _: any, __: any) => {
   const auth = { Authorization: `Basic ${cookies.get("jwt")}` }
 
   return (
-    fetch("https://staging-api.peril.systems/api/graphql", {
+    fetch(`${process.env.REACT_APP_PUBLIC_API_ROOT_URL}/api/graphql`, {
       method: "POST",
       headers: {
         Accept: "application/json",

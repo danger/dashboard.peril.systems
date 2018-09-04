@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Button, Form, Grid, Header, Segment } from "semantic-ui-react"
+import { Button, Form, Grid, Segment } from "semantic-ui-react"
 import { loginURL } from "../lib/routes"
 
 export default () => (
@@ -12,17 +12,20 @@ export default () => (
       }
     `}</style>
     <Grid textAlign="center" style={{ height: "100%", marginTop: "120" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="green" textAlign="center">
-          HELLO
-        </Header>
-        <Form size="large">
-          <Segment stacked>
+      <Grid.Column style={{ maxWidth: 450, paddingTop: 200 }}>
+        <img
+          src="http://danger.systems/images/js/peril-logo-hero-cachable@2x.png"
+          width="250"
+          style={{ paddingBottom: 40 }}
+        />
+
+        <Segment stacked>
+          <a href={loginURL}>
             <Button color="green" fluid size="large">
-              <a href={loginURL}>Login via GitHub</a>
+              Login via GitHub
             </Button>
-          </Segment>
-        </Form>
+          </a>
+        </Segment>
       </Grid.Column>
     </Grid>
   </div>

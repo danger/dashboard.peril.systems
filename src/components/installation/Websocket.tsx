@@ -1,6 +1,6 @@
 import * as React from "react"
 import { createFragmentContainer, graphql } from "react-relay"
-import { Button, Dropdown, Feed, Segment } from "semantic-ui-react"
+import { Feed, Segment } from "semantic-ui-react"
 import relativeDate from "tiny-relative-date"
 import { Websocket_installation } from "./__generated__/Websocket_installation.graphql"
 

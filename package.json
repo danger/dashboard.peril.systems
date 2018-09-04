@@ -29,10 +29,9 @@
     "dev": "react-app-rewired start",
     "build": "react-app-rewired build; yarn relay",
     "test": "react-app-rewired test --env=jsdom",
-    "schema:download": "yarn run schema:download:gql && yarn run schema:download:json",
-    "schema:download:gql": "yarn graphql get-schema -e http://localhost:5000/api/graphql -o relay_data/schema.graphql --no-all",
-    "schema:download:json": "yarn graphql get-schema -e http://localhost:5000/api/graphql -o relay_data/schema.json --json --no-all",
-    "relay": "yarn relay-compiler --src ./ --include 'src/components/**/*' 'src/pages/**/*'  --schema relay_data/schema.json --language typescript"
+    "schema:download:staging": "yarn graphql get-schema -e https://staging-api.peril.systems/api/graphql -o relay_data/schema.graphql --no-all",
+    "schema:download:local": "yarn graphql get-schema -e http://localhost:5000/api/graphql -o relay_data/schema.graphql --no-all",
+    "relay": "yarn relay-compiler --src ./ --include 'src/components/**/*' 'src/pages/**/*'  --schema relay_data/schema.graphql --language typescript"
   },
   "browserslist": {
     "development": [

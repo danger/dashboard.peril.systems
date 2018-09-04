@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Redirect, Route } from "react-router-dom"
 
 import Cookies from "universal-cookie"
 import Installation from "./components/Installation"
+import InstallationSettings from "./components/InstallationSettings"
 import Layout from "./components/layout/Layout"
 import Login from "./components/Login"
 import PartialInstallation from "./components/PartialInstallation"
@@ -19,7 +20,7 @@ class App extends React.Component {
               exact
               path="/success"
               render={() => {
-                const params = new URL(document.location).searchParams
+                const params = new URL(document.location as any).searchParams
                 cookies.set("jwt", params.get("perilJWT"))
                 return <Redirect to="/" />
               }}
@@ -42,7 +43,8 @@ class App extends React.Component {
               }}
             />
 
-            <Route path="/installation/:installationID" component={Installation} />
+            <Route path="/installation/:installationID/settings" component={InstallationSettings} />
+            <Route path="/installation/:installationID" component={Installation} exact />
             <Route path="/partial/:installationID" component={PartialInstallation} />
           </div>
         </Layout>

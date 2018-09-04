@@ -4,7 +4,14 @@ import { Environment } from "relay-runtime"
 const mutation = graphql`
   mutation makeInstallationRecordMutation($iID: Int!) {
     makeInstallationRecord(iID: $iID) {
-      login
+      ... on Installation {
+        login
+      }
+      ... on MutationError {
+        error {
+          description
+        }
+      }
     }
   }
 `

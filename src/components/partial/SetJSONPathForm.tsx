@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { createFragmentContainer, graphql, RelayProp } from "react-relay"
-import { Form } from "semantic-ui-react"
+import { Form, Message } from "semantic-ui-react"
 import { SetJSONPathForm_installation } from "./__generated__/SetJSONPathForm_installation.graphql"
 import { updateJSONURLMutation } from "./mutations/updateJSONURLMutation"
 
@@ -13,29 +13,50 @@ type RProps = Props & { relay: RelayProp }
 
 interface State {
   loading: boolean
+  error: boolean
+  errorMessage?: string
   url: string
 }
 
-export class SetJSONPathForm extends React.Component<RProps, State> {
-  public state = { loading: false, url: "" }
+class SetJSONPathForm extends React.Component<RProps, State> {
+  public state: State = { loading: false, url: "", error: false }
 
   public handleChange = (_: any, { value }: any) => this.setState({ url: value })
+  public handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
 
-  public handleSubmit = async () => {
     this.setState({ loading: true })
 
-    await updateJSONURLMutation(this.props.relay.environment, {
-      iID: this.props.installation.iID,
-      perilSettingsJSONURL: this.state.url,
-    })
-
-    window.location.replace(`/installation/${this.props.installation.iID}`)
+    try {
+      // Update the JSON
+      await updateJSONURLMutation(
+        this.props.relay.environment,
+        {
+          iID: this.props.installation.iID,
+          perilSettingsJSONURL: this.state.url,
+        },
+        res => {
+          const error = res.convertPartialInstallation.error
+          if (error) {
+            this.setState({ loading: false, error: true, errorMessage: error.description })
+          } else {
+            window.location.replace(`/installation/${this.props.installation.iID}`)
+          }
+        }
+      )
+    } catch (error) {
+      console.error("Error setting the JSON URL:")
+      console.error(error)
+    }
   }
 
   public render() {
     return (
-      <Form onSubmit={this.handleSubmit} loading={this.state.loading}>
-        <Form.Group widths="equal">
+      <Form error={this.state.error} onSubmit={this.handleSubmit} loading={this.state.loading}>
+        {this.state.error && (
+          <Message error header="Issue with setting your JSON URL" content={this.state.errorMessage!} />
+        )}
+        <Form.Group inline>
           <Form.Input label="Set the JSON URL: " onChange={this.handleChange} />
           <Form.Button>Submit</Form.Button>
         </Form.Group>

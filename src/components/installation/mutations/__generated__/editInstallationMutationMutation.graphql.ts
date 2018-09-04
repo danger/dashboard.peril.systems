@@ -1,12 +1,13 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type updateJSONURLMutationVariables = {
+export type editInstallationMutationMutationVariables = {
     readonly iID: number;
-    readonly perilSettingsJSONURL: string;
+    readonly perilSettingsJSONURL?: string | null;
+    readonly installationSlackUpdateWebhookURL?: string | null;
 };
-export type updateJSONURLMutationResponse = {
-    readonly convertPartialInstallation: ({
+export type editInstallationMutationMutationResponse = {
+    readonly editInstallation: ({
         readonly perilSettingsJSONURL?: string;
         readonly error?: ({
             readonly description: string;
@@ -17,11 +18,12 @@ export type updateJSONURLMutationResponse = {
 
 
 /*
-mutation updateJSONURLMutation(
+mutation editInstallationMutationMutation(
   $iID: Int!
-  $perilSettingsJSONURL: String!
+  $perilSettingsJSONURL: String
+  $installationSlackUpdateWebhookURL: String
 ) {
-  convertPartialInstallation(iID: $iID, perilSettingsJSONURL: $perilSettingsJSONURL) {
+  editInstallation(iID: $iID, perilSettingsJSONURL: $perilSettingsJSONURL, installationSlackUpdateWebhookURL: $installationSlackUpdateWebhookURL) {
     __typename
     ... on Installation {
       perilSettingsJSONURL
@@ -49,7 +51,13 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "perilSettingsJSONURL",
-    "type": "String!",
+    "type": "String",
+    "defaultValue": null
+  },
+  {
+    "kind": "LocalArgument",
+    "name": "installationSlackUpdateWebhookURL",
+    "type": "String",
     "defaultValue": null
   }
 ],
@@ -59,6 +67,12 @@ v1 = [
     "name": "iID",
     "variableName": "iID",
     "type": "Int!"
+  },
+  {
+    "kind": "Variable",
+    "name": "installationSlackUpdateWebhookURL",
+    "variableName": "installationSlackUpdateWebhookURL",
+    "type": "String"
   },
   {
     "kind": "Variable",
@@ -114,13 +128,13 @@ v4 = {
 return {
   "kind": "Request",
   "operationKind": "mutation",
-  "name": "updateJSONURLMutation",
+  "name": "editInstallationMutationMutation",
   "id": null,
-  "text": "mutation updateJSONURLMutation(\n  $iID: Int!\n  $perilSettingsJSONURL: String!\n) {\n  convertPartialInstallation(iID: $iID, perilSettingsJSONURL: $perilSettingsJSONURL) {\n    __typename\n    ... on Installation {\n      perilSettingsJSONURL\n    }\n    ... on MutationError {\n      error {\n        description\n      }\n    }\n    ... on Node {\n      __id: id\n    }\n  }\n}\n",
+  "text": "mutation editInstallationMutationMutation(\n  $iID: Int!\n  $perilSettingsJSONURL: String\n  $installationSlackUpdateWebhookURL: String\n) {\n  editInstallation(iID: $iID, perilSettingsJSONURL: $perilSettingsJSONURL, installationSlackUpdateWebhookURL: $installationSlackUpdateWebhookURL) {\n    __typename\n    ... on Installation {\n      perilSettingsJSONURL\n    }\n    ... on MutationError {\n      error {\n        description\n      }\n    }\n    ... on Node {\n      __id: id\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
-    "name": "updateJSONURLMutation",
+    "name": "editInstallationMutationMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": v0,
@@ -128,7 +142,7 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "convertPartialInstallation",
+        "name": "editInstallation",
         "storageKey": null,
         "args": v1,
         "concreteType": null,
@@ -143,13 +157,13 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "updateJSONURLMutation",
+    "name": "editInstallationMutationMutation",
     "argumentDefinitions": v0,
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "convertPartialInstallation",
+        "name": "editInstallation",
         "storageKey": null,
         "args": v1,
         "concreteType": null,
@@ -171,5 +185,5 @@ return {
   }
 };
 })();
-(node as any).hash = 'e89cffa23db8aaf594bd116f56d381be';
+(node as any).hash = '0821e5b772531b8e4ef695f769e52dca';
 export default node;

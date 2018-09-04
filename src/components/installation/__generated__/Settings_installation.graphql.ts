@@ -1,16 +1,17 @@
 /* tslint:disable */
 
 import { ConcreteFragment } from "relay-runtime";
-export type Overview_installation = {
+export type Settings_installation = {
     readonly iID: number;
-    readonly login: string;
+    readonly installationSlackUpdateWebhookURL: string | null;
+    readonly perilSettingsJSONURL: string;
 };
 
 
 
 const node: ConcreteFragment = {
   "kind": "Fragment",
-  "name": "Overview_installation",
+  "name": "Settings_installation",
   "type": "Installation",
   "metadata": null,
   "argumentDefinitions": [],
@@ -25,7 +26,14 @@ const node: ConcreteFragment = {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "login",
+      "name": "installationSlackUpdateWebhookURL",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "perilSettingsJSONURL",
       "args": null,
       "storageKey": null
     },
@@ -38,5 +46,5 @@ const node: ConcreteFragment = {
     }
   ]
 };
-(node as any).hash = 'b4cd241cba8edc04b20720ca2774e167';
+(node as any).hash = '86b2fea621074057a25edb244f6c24ac';
 export default node;
