@@ -7,7 +7,7 @@ import { Overview_installation } from "./__generated__/Overview_installation.gra
 const OverviewInternal = (props: Props) => (
   <div>
     <Header as="h2">
-      {props.installation.login}
+      <a href={`/installation/${props.installation.iID}`}>{props.installation.login}</a>
       <a href={`/installation/${props.installation.iID}/settings`}>
         <i aria-hidden="true" className="cog small icon" style={{ float: "right" }} />
       </a>

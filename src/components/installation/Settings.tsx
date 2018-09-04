@@ -67,18 +67,29 @@ class Settings extends React.Component<RProps, State> {
 
   public render() {
     return (
-      <Form error={this.state.error} onSubmit={this.handleSubmit} loading={this.state.loading}>
-        {this.state.error && (
-          <Message error header="Got an issue updating your installation" content={this.state.errorMessage!} />
-        )}
+      <div>
+        <h3>Settings for your installation</h3>
+        <Form error={this.state.error} onSubmit={this.handleSubmit} loading={this.state.loading}>
+          {this.state.error && (
+            <Message error header="Got an issue updating your installation" content={this.state.errorMessage!} />
+          )}
 
-        <Form.Group widths="equal">
-          <Form.Input label="Slack Incoming Webhook URL: " value={this.state.installationSlackUpdateWebhookURL} />
-          <Form.Input label="Your Settings JSON URL: " value={this.state.perilSettingsJSONURL} />
-        </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Input
+              label="Slack Incoming Webhook URL: "
+              value={this.state.installationSlackUpdateWebhookURL}
+              onChange={this.handleSlackChange}
+            />
+            <Form.Input
+              label="Your Settings JSON URL: "
+              value={this.state.perilSettingsJSONURL}
+              onChange={this.handleSettingsChange}
+            />
+          </Form.Group>
 
-        <Form.Button floated="right">Submit</Form.Button>
-      </Form>
+          <Form.Button floated="right">Submit</Form.Button>
+        </Form>
+      </div>
     )
   }
 }

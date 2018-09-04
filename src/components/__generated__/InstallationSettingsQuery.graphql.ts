@@ -17,6 +17,7 @@ query InstallationSettingsQuery(
   installation(iID: $id) {
     ...Overview_installation
     ...Settings_installation
+    ...EnvVars_installation
     __id: id
   }
 }
@@ -31,6 +32,12 @@ fragment Settings_installation on Installation {
   iID
   installationSlackUpdateWebhookURL
   perilSettingsJSONURL
+  __id: id
+}
+
+fragment EnvVars_installation on Installation {
+  iID
+  envVars
   __id: id
 }
 */
@@ -64,7 +71,7 @@ return {
   "operationKind": "query",
   "name": "InstallationSettingsQuery",
   "id": null,
-  "text": "query InstallationSettingsQuery(\n  $id: Int!\n) {\n  installation(iID: $id) {\n    ...Overview_installation\n    ...Settings_installation\n    __id: id\n  }\n}\n\nfragment Overview_installation on Installation {\n  iID\n  login\n  __id: id\n}\n\nfragment Settings_installation on Installation {\n  iID\n  installationSlackUpdateWebhookURL\n  perilSettingsJSONURL\n  __id: id\n}\n",
+  "text": "query InstallationSettingsQuery(\n  $id: Int!\n) {\n  installation(iID: $id) {\n    ...Overview_installation\n    ...Settings_installation\n    ...EnvVars_installation\n    __id: id\n  }\n}\n\nfragment Overview_installation on Installation {\n  iID\n  login\n  __id: id\n}\n\nfragment Settings_installation on Installation {\n  iID\n  installationSlackUpdateWebhookURL\n  perilSettingsJSONURL\n  __id: id\n}\n\nfragment EnvVars_installation on Installation {\n  iID\n  envVars\n  __id: id\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -90,6 +97,11 @@ return {
           {
             "kind": "FragmentSpread",
             "name": "Settings_installation",
+            "args": null
+          },
+          {
+            "kind": "FragmentSpread",
+            "name": "EnvVars_installation",
             "args": null
           },
           v2
@@ -139,6 +151,13 @@ return {
             "name": "perilSettingsJSONURL",
             "args": null,
             "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "envVars",
+            "args": null,
+            "storageKey": null
           }
         ]
       }
@@ -146,5 +165,5 @@ return {
   }
 };
 })();
-(node as any).hash = 'dd974284ac91e4200ffaa94e35715785';
+(node as any).hash = 'd1b0298c98ded8a90c8e2a06114ac7f8';
 export default node;

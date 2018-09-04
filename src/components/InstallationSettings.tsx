@@ -3,6 +3,7 @@ import { graphql, QueryRenderer } from "react-relay"
 
 import { Container } from "semantic-ui-react"
 import initEnvironment from "../lib/createRelayEnvironment"
+import EnvVars from "./installation/EnvVars"
 import Overview from "./installation/Overview"
 import Settings from "./installation/Settings"
 
@@ -18,6 +19,7 @@ export default class InstallationSettings extends React.Component<any> {
             installation(iID: $id) {
               ...Overview_installation
               ...Settings_installation
+              ...EnvVars_installation
             }
           }
         `}
@@ -34,6 +36,7 @@ export default class InstallationSettings extends React.Component<any> {
             <Container style={{ paddingTop: "5em", paddingBottom: "5em" }} text>
               <Overview installation={props.installation} />
               <Settings installation={props.installation} />
+              <EnvVars installation={props.installation} />
             </Container>
           )
         }}
