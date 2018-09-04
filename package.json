@@ -29,6 +29,7 @@
     "dev": "react-app-rewired start",
     "build": "react-app-rewired build; yarn relay",
     "test": "react-app-rewired test --env=jsdom",
+    "deploy:staging": "yarn build && nf run scripts/deploy_staging.sh",
     "schema:download:staging": "yarn graphql get-schema -e https://staging-api.peril.systems/api/graphql -o relay_data/schema.graphql --no-all",
     "schema:download:local": "yarn graphql get-schema -e http://localhost:5000/api/graphql -o relay_data/schema.graphql --no-all",
     "relay": "yarn relay-compiler --src ./ --include 'src/components/**/*' 'src/pages/**/*'  --schema relay_data/schema.graphql --language typescript"
@@ -48,6 +49,7 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "7.0.0-beta.46",
+    "@heroku/foreman": "^2.0.2",
     "@playlyfe/gql": "^2.6.0",
     "@types/dotenv": "^4.0.3",
     "@types/jest": "^23.0.0",
