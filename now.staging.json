@@ -5,6 +5,6 @@
   "public": false,
   "env": {
     "REACT_APP_PUBLIC_API_ROOT_URL": "https://staging-api.peril.systems",
-    "REACT_APP_PUBLIC_WEB_ROOT_URL": "https://staging-dashboard.peril.system"
+    "REACT_APP_PUBLIC_WEB_ROOT_URL": "https://staging-dashboard.peril.systems"
   }
 }

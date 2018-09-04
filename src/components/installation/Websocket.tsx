@@ -48,7 +48,7 @@ class Websocket extends React.Component<Props, State> {
       this.setState({ connected: true, events: [...this.state.events, datedData] })
     })
 
-    primus.on("disconnection", spark => {
+    primus.on("disconnection", (spark: any) => {
       this.setState({ connected: false })
     })
   }

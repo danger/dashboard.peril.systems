@@ -69,7 +69,7 @@ class EnvVars extends React.Component<RProps, State> {
         <table className="ui celled striped table" style={{ clear: "both" }}>
           <thead>
             <tr>
-              <th colSpan="3">Existing Env Vars</th>
+              <th colSpan={3}>Existing Env Vars</th>
             </tr>
           </thead>
           <tbody>
