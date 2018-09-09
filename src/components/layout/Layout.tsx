@@ -6,6 +6,7 @@ import * as React from "react"
 import { Link } from "react-router-dom"
 import { Container, Dropdown, Image, Menu } from "semantic-ui-react"
 import initEnvironment from "../../lib/createRelayEnvironment"
+import { addPerilURL } from "../../lib/routes"
 import { LayoutQueryResponse } from "./__generated__/LayoutQuery.graphql"
 
 const MenuItem = (props: { text: string; href: string; imageSrc?: string }) => (
@@ -41,6 +42,7 @@ const renderLoggedInMenu: React.SFC<LayoutQueryResponse> = props => (
           ))}
 
         <Dropdown.Divider />
+        <Dropdown.Item href={addPerilURL}>Add new Org to Peril</Dropdown.Item>
         <Dropdown.Item onClick={logOut}>Log Out</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

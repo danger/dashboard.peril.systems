@@ -3,6 +3,7 @@ import initEnvironment from "../lib/createRelayEnvironment"
 
 import * as React from "react"
 import { Container, Header, Image } from "semantic-ui-react"
+import { addPerilURL } from "../lib/routes"
 import { HomeQueryResponse } from "./__generated__/HomeQuery.graphql"
 
 export default () => (
@@ -64,10 +65,17 @@ export default () => (
                       <Image circular src={i!.node!.avatarURL} /> {i!.node!.login}
                     </Header>
                   </a>
-
                   <br />
                 </div>
               ))}
+            </div>
+
+            <div style={{ marginTop: 40 }}>
+              <a href={addPerilURL}>
+                <Header image="plus" as="h2">
+                  Add a new org
+                </Header>
+              </a>
             </div>
           </Container>
         </div>
