@@ -10,7 +10,7 @@ interface Props {
 
 interface State {
   events: Notification[]
-  connected: boolean
+  connected?: boolean
 }
 
 declare const Primus: any
@@ -18,7 +18,7 @@ declare const Primus: any
 class Websocket extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
-    this.state = { events: [], connected: false }
+    this.state = { events: [] }
   }
 
   public componentDidMount() {
@@ -54,10 +54,24 @@ class Websocket extends React.Component<Props, State> {
   }
 
   public render() {
+    const isConnecting = !Object.keys(this.state).includes("connected")
+    let message
+    switch (true) {
+      case isConnecting:
+        message = "Connecting..."
+        break
+      case this.state.connected:
+        message = "Connected"
+        break
+      default:
+        message = "Disconnected"
+    }
+
     return (
       <div>
-        <Segment style={{ padding: "8em 0em" }} vertical>
-          <p>{this.state.connected ? "Connected" : "Disconnected"}</p>
+        <h4>WIP</h4>
+        <Segment vertical>
+          <p>{message}</p>
 
           <Feed>
             {this.state.events.map(e => {

@@ -59,7 +59,7 @@ export default class Installation extends React.Component<any, any> {
                   <Menu.Item as={NavLink} to={urlPrefix + "settings"} content="Settings" />
                 </Menu>
 
-                <div>
+                <div style={{ marginTop: 20 }}>
                   <Route
                     path="/installation/:installationID/"
                     component={() => (

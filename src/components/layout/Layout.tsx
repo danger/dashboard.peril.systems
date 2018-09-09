@@ -4,12 +4,13 @@ import Cookies from "universal-cookie"
 
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { Container, Dropdown, Menu } from "semantic-ui-react"
+import { Container, Dropdown, Image, Menu } from "semantic-ui-react"
 import initEnvironment from "../../lib/createRelayEnvironment"
 import { LayoutQueryResponse } from "./__generated__/LayoutQuery.graphql"
 
-const MenuItem = (props: { text: string; href: string }) => (
+const MenuItem = (props: { text: string; href: string; imageSrc?: string }) => (
   <Dropdown.Item as={Link} to={props.href}>
+    {props.imageSrc && <img src="" />}
     {props.text}
   </Dropdown.Item>
 )

@@ -50,23 +50,25 @@ export default () => (
       const installations = p.me && p.me.installations && p.me.installations.edges
 
       return (
-        <div style={{ marginTop: 60 }}>
+        <div style={{ marginTop: 100 }}>
           <Container text>
             <Header as="h1" dividing>
               Your installations
             </Header>
 
-            {installations!.map(i => (
-              <div>
-                <a href={`/installation/${i!.node!.iID}`}>
-                  <Header as="h2">
-                    <Image circular src={i!.node!.avatarURL} /> {i!.node!.login}
-                  </Header>
-                </a>
+            <div style={{ marginTop: 40 }}>
+              {installations!.map(i => (
+                <div>
+                  <a href={`/installation/${i!.node!.iID}`}>
+                    <Header as="h2">
+                      <Image circular src={i!.node!.avatarURL} /> {i!.node!.login}
+                    </Header>
+                  </a>
 
-                <br />
-              </div>
-            ))}
+                  <br />
+                </div>
+              ))}
+            </div>
           </Container>
         </div>
       )

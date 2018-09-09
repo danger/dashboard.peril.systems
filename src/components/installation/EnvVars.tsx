@@ -25,7 +25,6 @@ interface State {
 class EnvVars extends React.Component<RProps, State> {
   constructor(props: RProps) {
     super(props)
-    console.log(props)
     this.state = {
       loading: false,
       error: false,
@@ -75,7 +74,9 @@ class EnvVars extends React.Component<RProps, State> {
           <tbody>
             {Object.keys(this.props.installation.envVars).map(key => (
               <tr key={key}>
-                <td>{key}</td>
+                <td>
+                  <code>{key}</code>
+                </td>
                 <td className="collapsing aligned">
                   <code style={{ overflowX: "scroll" }}>
                     {this.state.showKeys.includes(key) ? this.props.installation.envVars[key] : "************"}

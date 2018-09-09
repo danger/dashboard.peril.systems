@@ -6,7 +6,7 @@ let relayEnvironment: Environment | null = null
 
 // Define a function that returns the fetch for the results of an operation (query/mutation/etc)
 // and returns its results as a Promise:
-const fetchQuery = (operation: any, variables: any, _: any, __: any) => {
+export const fetchQuery = (operation: { text: string }, variables: any, _?: any, __?: any) => {
   const cookies = new Cookies()
   const auth = { Authorization: `Basic ${cookies.get("jwt")}` }
 

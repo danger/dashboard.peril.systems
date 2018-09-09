@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { createFragmentContainer, graphql } from "react-relay"
-import { Header, Image } from "semantic-ui-react"
+import { Image, Header } from "semantic-ui-react"
 import { Overview_installation } from "./__generated__/Overview_installation.graphql"
 
 const OverviewInternal = (props: Props) => (

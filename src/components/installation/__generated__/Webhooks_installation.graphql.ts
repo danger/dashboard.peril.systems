@@ -9,6 +9,7 @@ export type Webhooks_installation = {
                 readonly event: string;
                 readonly iID: number;
                 readonly createdAt: any;
+                readonly eventID: string;
             }) | null;
         }) | null> | null;
     };
@@ -78,6 +79,13 @@ return {
                   "name": "createdAt",
                   "args": null,
                   "storageKey": null
+                },
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "name": "eventID",
+                  "args": null,
+                  "storageKey": null
                 }
               ]
             }
@@ -95,5 +103,5 @@ return {
   ]
 };
 })();
-(node as any).hash = '270a2ab5035c6e53b18b40e98dfa25af';
+(node as any).hash = '587a6bb3e01c2679a1d8bdaaa3ec8c9a';
 export default node;

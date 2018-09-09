@@ -1,6 +1,7 @@
 import * as React from "react"
 import { createFragmentContainer, graphql, RelayProp } from "react-relay"
 import { Segment } from "semantic-ui-react"
+import { githubURLForReference } from "../../lib/dangerfileReferenceURLs"
 import { InstallationRules_installation } from "./__generated__/InstallationRules_installation.graphql"
 
 interface Props {
@@ -18,10 +19,15 @@ export const InstallationRules: any = (props: Props & { relay: RelayProp }) => {
     tasks: props.installation.tasks,
     scheduler: props.installation.scheduler,
   }
+  const url = props.installation.perilSettingsJSONURL
   return (
     <Segment>
       <div className="ui top left attached label">Peril settings</div>
-      <pre style={{ overflowX: "scroll" }}>{JSON.stringify(visibleSettings, null, "  ")}</pre>
+      <div className="ui top right attached label">
+        <a href={githubURLForReference(url)}>{url}</a>
+      </div>
+
+      <pre style={{ overflowX: "scroll", marginTop: 30 }}>{JSON.stringify(visibleSettings, null, "  ")}</pre>
     </Segment>
   )
 }
