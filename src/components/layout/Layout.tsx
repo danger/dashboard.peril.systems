@@ -4,7 +4,7 @@ import Cookies from "universal-cookie"
 
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { Container, Dropdown, Image, Menu } from "semantic-ui-react"
+import { Container, Dropdown, Menu } from "semantic-ui-react"
 import initEnvironment from "../../lib/createRelayEnvironment"
 import { addPerilURL } from "../../lib/routes"
 import { LayoutQueryResponse } from "./__generated__/LayoutQuery.graphql"

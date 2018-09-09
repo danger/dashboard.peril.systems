@@ -24,9 +24,6 @@ export const runRecordWebhooksMutation = (environment: Environment, installation
   commitMutation(environment, {
     mutation,
     variables,
-    onCompleted: (response, errors) => {
-      console.log("Response received from server.")
-    },
     onError: err => console.error(err),
   })
 }

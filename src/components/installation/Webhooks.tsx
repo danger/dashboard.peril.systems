@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { createFragmentContainer, graphql, RelayProp } from "react-relay"
-import { Button, Segment, Table } from "semantic-ui-react"
+import { Button, Table } from "semantic-ui-react"
 import { fetchQuery } from "../../lib/createRelayEnvironment"
 import { Webhooks_installation } from "./__generated__/Webhooks_installation.graphql"
 import { triggerWebhookMutation } from "./mutations/triggerWebhookMutation"
@@ -28,6 +28,7 @@ class Webhooks extends React.Component<RProps, State> {
 
   /** Grabs the json for a webhook */
   public getWebhook = (iID: number, eventID: string) => async (e: any, _: any) => {
+    e.preventDefault()
     const request = await fetchQuery(
       {
         text: `

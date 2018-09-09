@@ -28,6 +28,7 @@
     "now-start": "serve --single ./build",
     "dev": "react-app-rewired start",
     "build": "react-app-rewired build; yarn relay",
+    "type-check": "tsc --noEmit",
     "test": "react-app-rewired test --env=jsdom",
     "deploy:staging": "yarn build && nf run scripts/deploy_staging.sh",
     "schema:download:staging": "yarn graphql get-schema -e https://staging-api.peril.systems/api/graphql -o relay_data/schema.graphql --no-all",

@@ -60,7 +60,7 @@ class InsideTaskRunner extends React.Component<RProps, State> {
             options={taskOptions}
             search
             text={this.state.selectedTask || "Select Task"}
-            onChange={(a, b) => {
+            onChange={(_: any, b) => {
               this.setState({ selectedTask: b.value as string })
             }}
           />
