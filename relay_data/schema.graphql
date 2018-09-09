@@ -1,5 +1,5 @@
 # source: https://staging-api.peril.systems/api/graphql
-# timestamp: Mon Sep 03 2018 19:34:15 GMT-0400 (Eastern Daylight Time)
+# timestamp: Sun Sep 09 2018 09:05:52 GMT-0400 (EDT)
 
 scalar Date
 
@@ -23,7 +23,7 @@ type Installation implements Node {
   login: String!
 
   """The URL for an image representing the installation owner"""
-  avatarURL: String!
+  avatarURL: String
 
   """A set of per repo rules"""
   repos: JSON!

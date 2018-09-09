@@ -55,27 +55,29 @@ class Websocket extends React.Component<Props, State> {
 
   public render() {
     return (
-      <Segment style={{ padding: "8em 0em" }} vertical>
-        <p>{this.state.connected ? "Connected" : "Disconnected"}</p>
+      <div>
+        <Segment style={{ padding: "8em 0em" }} vertical>
+          <p>{this.state.connected ? "Connected" : "Disconnected"}</p>
 
-        <Feed>
-          {this.state.events.map(e => {
-            switch (e.action) {
-              case "connected":
-                return connectedEvent(e)
+          <Feed>
+            {this.state.events.map(e => {
+              switch (e.action) {
+                case "connected":
+                  return connectedEvent(e)
 
-              case "started":
-                return dangerfileStartedEvent(this.props.installation.perilSettingsJSONURL, e)
+                case "started":
+                  return dangerfileStartedEvent(this.props.installation.perilSettingsJSONURL, e)
 
-              case "finished":
-                return dangerfileFinishedEvent(e)
+                case "finished":
+                  return dangerfileFinishedEvent(e)
 
-              case "log":
-                return dangerfileLogEvent(e)
-            }
-          })}
-        </Feed>
-      </Segment>
+                case "log":
+                  return dangerfileLogEvent(e)
+              }
+            })}
+          </Feed>
+        </Segment>
+      </div>
     )
   }
 }

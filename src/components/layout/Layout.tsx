@@ -52,7 +52,9 @@ const InnerLayout: React.SFC<LayoutQueryResponse> = props => (
 
     <Menu fixed="top">
       <Container text>
-        <Menu.Item header>Peril Dashboard</Menu.Item>
+        <Menu.Item header href={`/`}>
+          Peril Dashboard
+        </Menu.Item>
         {props.me && renderLoggedInMenu(props)}
       </Container>
     </Menu>
@@ -98,7 +100,7 @@ export default (initialProps: any) => (
       }
 
       if (!props) {
-        // We're waiting on the reponse for installations
+        // We're waiting on the response for installations
         return <InnerLayout me={{} as any} />
       }
 

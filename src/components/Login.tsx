@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Button, Form, Grid, Segment } from "semantic-ui-react"
-import { loginURL } from "../lib/routes"
+import { addPerilURL, loginURL } from "../lib/routes"
 
 export default () => (
   <div className="login-form">
@@ -26,6 +26,12 @@ export default () => (
             </Button>
           </a>
         </Segment>
+        <a href={addPerilURL}>Sign up to Peril</a>
+        {process.env.REACT_APP_PUBLIC_IS_PRODUCTION !== "true" && (
+          <span>
+            <br />Note: to use Staging you need to be in the danger org
+          </span>
+        )}
       </Grid.Column>
     </Grid>
   </div>

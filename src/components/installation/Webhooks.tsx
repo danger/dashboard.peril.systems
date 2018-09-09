@@ -23,7 +23,7 @@ const WebhooksInternal = (props: Props) => {
         </Table.Header>
         <Table.Body>
           {webhooks.map(w => (
-            <Table.Row>
+            <Table.Row key={w!.node!.createdAt}>
               <Table.Cell key="event">{w!.node!.event}</Table.Cell>
               <Table.Cell key="time">{w!.node!.createdAt}</Table.Cell>
               <Table.Cell key="resend">

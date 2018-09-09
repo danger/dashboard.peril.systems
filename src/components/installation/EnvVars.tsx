@@ -77,14 +77,16 @@ class EnvVars extends React.Component<RProps, State> {
               <tr key={key}>
                 <td>{key}</td>
                 <td className="collapsing aligned">
-                  <code>
+                  <code style={{ overflowX: "scroll" }}>
                     {this.state.showKeys.includes(key) ? this.props.installation.envVars[key] : "************"}
                   </code>
                 </td>
                 <td className="collapsing aligned">
-                  <Button size="tiny" onClick={() => this.setState({ showKeys: [...this.state.showKeys, key] })}>
-                    Show
-                  </Button>
+                  {!this.state.showKeys.includes(key) && (
+                    <Button size="tiny" onClick={() => this.setState({ showKeys: [...this.state.showKeys, key] })}>
+                      Show
+                    </Button>
+                  )}
                   <Button
                     size="tiny"
                     onClick={() => this.submitKeyValueChanges({ iID: this.props.installation.iID, key })}

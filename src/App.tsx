@@ -2,6 +2,7 @@ import * as React from "react"
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom"
 
 import Cookies from "universal-cookie"
+import Home from "./components/Home"
 import Installation from "./components/Installation"
 import InstallationSettings from "./components/InstallationSettings"
 import Layout from "./components/layout/Layout"
@@ -31,20 +32,14 @@ class App extends React.Component {
               path="/"
               render={() => {
                 if (cookies.get("jwt")) {
-                  return (
-                    <h1>
-                      <br />
-                      <br />Show Dash
-                    </h1>
-                  )
+                  return <Home />
                 } else {
                   return <Login />
                 }
               }}
             />
 
-            <Route path="/installation/:installationID/settings" component={InstallationSettings} />
-            <Route path="/installation/:installationID" component={Installation} exact />
+            <Route path="/installation/:installationID" component={Installation} />
             <Route path="/partial/:installationID" component={PartialInstallation} />
           </div>
         </Layout>

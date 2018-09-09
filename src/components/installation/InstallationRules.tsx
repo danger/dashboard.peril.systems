@@ -21,7 +21,7 @@ export const InstallationRules: any = (props: Props & { relay: RelayProp }) => {
   return (
     <Segment>
       <div className="ui top left attached label">Peril settings</div>
-      <pre>{JSON.stringify(visibleSettings, null, "  ")}</pre>
+      <pre style={{ overflowX: "scroll" }}>{JSON.stringify(visibleSettings, null, "  ")}</pre>
     </Segment>
   )
 }
