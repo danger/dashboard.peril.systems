@@ -38,8 +38,8 @@ class App extends React.Component {
               }}
             />
 
-            <Route path="/installed" component={Installation} />
             <Route path="/installation/:installationID" component={Installation} />
+            <Route path="/installed" component={PartialInstallation} />
             <Route path="/partial/:installationID" component={PartialInstallation} />
           </div>
         </Layout>

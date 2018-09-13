@@ -17,8 +17,8 @@ const MenuItem = (props: { text: string; href: string; imageSrc?: string }) => (
 )
 
 const logOut = () => {
-  const cookies = new Cookies()
-  cookies.remove("jwt")
+  document.cookie = "jwt=;expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=.peril.systems"
+  document.cookie = "jwt=;expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=.localhost"
   window.location.replace("/")
 }
 

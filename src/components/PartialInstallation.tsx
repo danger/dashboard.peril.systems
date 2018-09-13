@@ -3,11 +3,15 @@ import { graphql, QueryRenderer } from "react-relay"
 
 import { Container } from "semantic-ui-react"
 import initEnvironment from "../lib/createRelayEnvironment"
+import { customLoginRedirect, partialInstallation } from "../lib/routes"
 import SetJSONPathForm from "./partial/SetJSONPathForm"
 
 export default class PartialInstallation extends React.Component<any> {
   public render() {
-    const installationID = this.props.match.params.installationID
+    // Comes from either react-router getting it from the urls, or from GitHub's
+    // redirect which adds it to the query params.
+    const installationID =
+      this.props.match.params.installationID || new URL(location.href).searchParams.get("installation_id")
 
     return (
       <QueryRenderer
@@ -27,6 +31,11 @@ export default class PartialInstallation extends React.Component<any> {
           }
           if (!props) {
             return <div>Loading...</div>
+          }
+
+          if (!props.installation) {
+            // Probably logged out, go through the login process and come back
+            document.location.replace(customLoginRedirect(partialInstallation(installationID)))
           }
 
           return (
