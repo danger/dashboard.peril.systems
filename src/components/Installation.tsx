@@ -16,7 +16,10 @@ export default class Installation extends React.Component<any, any> {
   public state = { activeItem: "home" }
 
   public render() {
-    const installationID = this.props.match.params.installationID
+    // Comes from either react-router getting it from the urls, or from GitHub's
+    // redirect which adds it to the query params.
+    const installationID =
+      this.props.match.params.installationID || new URL(location.href).searchParams.get("installation_id")
 
     return (
       <QueryRenderer
