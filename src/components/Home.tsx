@@ -2,7 +2,7 @@ import { graphql, QueryRenderer } from "react-relay"
 import initEnvironment from "../lib/createRelayEnvironment"
 
 import * as React from "react"
-import { Container, Header, Image } from "semantic-ui-react"
+import { Container, Header, Icon, Image } from "semantic-ui-react"
 import { addPerilURL } from "../lib/routes"
 import { HomeQueryResponse } from "./__generated__/HomeQuery.graphql"
 
@@ -72,7 +72,8 @@ export default () => (
 
             <div style={{ marginTop: 40 }}>
               <a href={addPerilURL}>
-                <Header image="plus" as="h2">
+                <Header as="h2">
+                  <Icon name="plus" size="small" />
                   Add a new org
                 </Header>
               </a>

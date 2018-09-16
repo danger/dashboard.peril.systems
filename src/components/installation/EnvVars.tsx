@@ -61,44 +61,47 @@ class EnvVars extends React.Component<RProps, State> {
     }
   }
 
+  public renderExistingEnvVars = () => (
+    <table className="ui celled striped table" style={{ clear: "both" }}>
+      <thead>
+        <tr>
+          <th colSpan={3}>Existing Env Vars</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.keys(this.props.installation.envVars).map(key => (
+          <tr key={key}>
+            <td>
+              <code>{key}</code>
+            </td>
+            <td className="collapsing aligned">
+              <code style={{ overflowX: "scroll" }}>
+                {this.state.showKeys.includes(key) ? this.props.installation.envVars[key] : "************"}
+              </code>
+            </td>
+            <td className="collapsing aligned">
+              {!this.state.showKeys.includes(key) && (
+                <Button size="tiny" onClick={() => this.setState({ showKeys: [...this.state.showKeys, key] })}>
+                  Show
+                </Button>
+              )}
+              <Button size="tiny" onClick={() => this.submitKeyValueChanges({ iID: this.props.installation.iID, key })}>
+                Remove
+              </Button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
+
   public render() {
+    const envVars = Object.keys(this.props.installation.envVars)
     return (
       <div style={{ clear: "both" }}>
         <h3>Env Vars</h3>
-        <table className="ui celled striped table" style={{ clear: "both" }}>
-          <thead>
-            <tr>
-              <th colSpan={3}>Existing Env Vars</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.keys(this.props.installation.envVars).map(key => (
-              <tr key={key}>
-                <td>
-                  <code>{key}</code>
-                </td>
-                <td className="collapsing aligned">
-                  <code style={{ overflowX: "scroll" }}>
-                    {this.state.showKeys.includes(key) ? this.props.installation.envVars[key] : "************"}
-                  </code>
-                </td>
-                <td className="collapsing aligned">
-                  {!this.state.showKeys.includes(key) && (
-                    <Button size="tiny" onClick={() => this.setState({ showKeys: [...this.state.showKeys, key] })}>
-                      Show
-                    </Button>
-                  )}
-                  <Button
-                    size="tiny"
-                    onClick={() => this.submitKeyValueChanges({ iID: this.props.installation.iID, key })}
-                  >
-                    Remove
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+        {envVars.length && this.renderExistingEnvVars()}
 
         <Form error={this.state.error} onSubmit={this.submitNewKeyValueForm} loading={this.state.loading}>
           {this.state.error && (

@@ -1,10 +1,8 @@
-import { graphql, QueryRenderer } from "react-relay"
-
-import Cookies from "universal-cookie"
-
 import * as React from "react"
+
+import { graphql, QueryRenderer } from "react-relay"
 import { Link } from "react-router-dom"
-import { Container, Dropdown, Menu } from "semantic-ui-react"
+import { Container, Dropdown, Icon, Menu } from "semantic-ui-react"
 import initEnvironment from "../../lib/createRelayEnvironment"
 import { addPerilURL } from "../../lib/routes"
 import { LayoutQueryResponse } from "./__generated__/LayoutQuery.graphql"
@@ -42,7 +40,9 @@ const renderLoggedInMenu: React.SFC<LayoutQueryResponse> = props => (
           ))}
 
         <Dropdown.Divider />
-        <Dropdown.Item href={addPerilURL}>Add new Org to Peril</Dropdown.Item>
+        <Dropdown.Item href={addPerilURL}>
+          <Icon name="plus" size="small" />Add new Org
+        </Dropdown.Item>
         <Dropdown.Item onClick={logOut}>Log Out</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
